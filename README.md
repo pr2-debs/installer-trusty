@@ -1,1 +1,0 @@
-# installer-trusty

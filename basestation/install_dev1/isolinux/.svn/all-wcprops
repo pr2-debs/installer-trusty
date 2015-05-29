@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/pr2debs/!svn/ver/1116/trunk/installer-precise/basestation/install_dev1/isolinux
+END
+isolinux.bin
+K 25
+svn:wc:ra_dav:version-url
+V 97
+/svn/pr2debs/!svn/ver/1116/trunk/installer-precise/basestation/install_dev1/isolinux/isolinux.bin
+END
+gfxboot.cfg
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/pr2debs/!svn/ver/968/trunk/installer-precise/basestation/install_dev1/isolinux/gfxboot.cfg
+END
+isolinux.cfg
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/pr2debs/!svn/ver/968/trunk/installer-precise/basestation/install_dev1/isolinux/isolinux.cfg
+END
+boot.cat
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/pr2debs/!svn/ver/968/trunk/installer-precise/basestation/install_dev1/isolinux/boot.cat
+END

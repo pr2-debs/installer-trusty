@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/pr2debs/!svn/ver/1250/trunk/installer-precise/basestation/install_dev1
+END
+pr2pkglist
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/pr2debs/!svn/ver/968/trunk/installer-precise/basestation/install_dev1/pr2pkglist
+END
+new-sources.list
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/pr2debs/!svn/ver/1122/trunk/installer-precise/basestation/install_dev1/new-sources.list
+END
+basestation_precise64.preseed
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/pr2debs/!svn/ver/1122/trunk/installer-precise/basestation/install_dev1/basestation_precise64.preseed
+END
+usbpkgs.list
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/pr2debs/!svn/ver/968/trunk/installer-precise/basestation/install_dev1/usbpkgs.list
+END
+post_install
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/pr2debs/!svn/ver/968/trunk/installer-precise/basestation/install_dev1/post_install
+END
+syslinux.cfg
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/pr2debs/!svn/ver/977/trunk/installer-precise/basestation/install_dev1/syslinux.cfg
+END
+grub.cfg
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/pr2debs/!svn/ver/1116/trunk/installer-precise/basestation/install_dev1/grub.cfg
+END
+pkglist
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/pr2debs/!svn/ver/968/trunk/installer-precise/basestation/install_dev1/pkglist
+END
+sources.list
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/pr2debs/!svn/ver/968/trunk/installer-precise/basestation/install_dev1/sources.list
+END

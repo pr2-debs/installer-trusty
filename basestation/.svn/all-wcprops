@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/pr2debs/!svn/ver/1252/trunk/installer-precise/basestation
+END
+repocheck
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/pr2debs/!svn/ver/1109/trunk/installer-precise/basestation/repocheck
+END
+TODO
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/pr2debs/!svn/ver/1124/trunk/installer-precise/basestation/TODO
+END
+createusb.sh
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/pr2debs/!svn/ver/1252/trunk/installer-precise/basestation/createusb.sh
+END
+syncusb
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/pr2debs/!svn/ver/976/trunk/installer-precise/basestation/syncusb
+END
+createiso.sh
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/pr2debs/!svn/ver/968/trunk/installer-precise/basestation/createiso.sh
+END
+pullNewRelease
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/pr2debs/!svn/ver/1251/trunk/installer-precise/basestation/pullNewRelease
+END
+fetch
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/pr2debs/!svn/ver/971/trunk/installer-precise/basestation/fetch
+END
+basestation-release.yaml
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/pr2debs/!svn/ver/1250/trunk/installer-precise/basestation/basestation-release.yaml
+END
+genimage
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/pr2debs/!svn/ver/1122/trunk/installer-precise/basestation/genimage
+END
+genusb.sh
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/pr2debs/!svn/ver/1121/trunk/installer-precise/basestation/genusb.sh
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/pr2debs/!svn/ver/969/trunk/installer-precise/basestation/README
+END
+verifyinstaller
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/pr2debs/!svn/ver/968/trunk/installer-precise/basestation/verifyinstaller
+END

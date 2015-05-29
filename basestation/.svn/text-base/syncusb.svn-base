@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if [ -z $1 ]
+then
+   echo "Usage syncusb <file/dev>"
+   exit 1
+fi
+
+TARGET=$1
+if [ -b $1 ]
+then
+   echo "Mounting $1"
+   mkdir -p tmp
+   TARGET=tmp
+   mount $1 tmp
+fi
+
+rsync -crv --exclude '.svn' --delete --delete-excluded install_dev1/* $TARGET
+chmod -R a+rX $TARGET
+
+if [ -b $1 ] 
+then
+   echo "Unmounting $1"
+   umount $1
+   rmdir tmp
+fi

@@ -1,0 +1,4 @@
+#!/bin/bash
+
+(cd install_dev1; [ -e ubuntu-12.04.1-alternate-amd64.iso ] || wget http://releases.ubuntu.com/12.04.1/ubuntu-12.04.1-alternate-amd64.iso)
+(cd install_dev1/pr2-packages; reprepro -V --noskipold update precise)

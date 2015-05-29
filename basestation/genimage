@@ -1,0 +1,50 @@
+#!/bin/bash
+
+VERSION=12.04.1
+IMAGE=ubuntu-$VERSION-alternate-amd64.iso
+
+(cd install_dev1; [ -e $IMAGE ] || wget http://releases.ubuntu.com/$VERSION/$IMAGE)
+
+# clean out target directory
+IMAGE_DIR=/tmp/image_dir
+rm -rf $IMAGE_DIR
+mkdir $IMAGE_DIR
+
+# mount disk image
+mkdir -p /tmp/cdrom
+mount -o loop install_dev1/$IMAGE /tmp/cdrom
+
+# copy disk image to target directory
+rsync -a /tmp/cdrom/ $IMAGE_DIR
+
+# unmount disk image
+umount /tmp/cdrom
+
+# copy reprepro conf to target and sync packages
+cp -r install_dev1/pr2-packages/conf $IMAGE_DIR
+(cd $IMAGE_DIR; reprepro --noskipold update precise)
+
+# copy preseed file to target
+cp install_dev1/basestation_precise64.preseed $IMAGE_DIR/preseed/ubuntu.seed
+
+# add grub config files
+cp install_dev1/grub.cfg $IMAGE_DIR/boot/grub/
+
+# add new sources.list
+cp install_dev1/new-sources.list $IMAGE_DIR/
+
+# remove GPG signature
+rm $IMAGE_DIR/dists/precise/Release.gpg
+
+# generate md5sums
+rm $IMAGE_DIR/md5sum.txt
+find $IMAGE_DIR -type f | xargs md5sum >$IMAGE_DIR/md5sum.txt
+
+isofile=/tmp/basestation.iso
+genisoimage -R -J -o $isofile -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table $IMAGE_DIR
+
+echo "ISO generated as $isofile:"
+du -h $isofile
+
+echo "Image directory:"
+du -sh $IMAGE_DIR
