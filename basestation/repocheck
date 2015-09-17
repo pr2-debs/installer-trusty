@@ -71,7 +71,7 @@ def main(argv, stdout, environ):
   repo_pkgs = {}
   repo_provs = {}
   filename = args[1]
-  reprepro_cmd = ['reprepro', '-b', options.path, """--list-format=${package}\\0${architecture}\\0${version}\\0${MD5Sum}\\0${depends}\\0${provides}\n""", 'list', 'precise']
+  reprepro_cmd = ['reprepro', '-b', options.path, """--list-format=${package}\\0${architecture}\\0${version}\\0${MD5Sum}\\0${depends}\\0${provides}\n""", 'list', 'trusty']
   (o,e) = subprocess.Popen(reprepro_cmd, stdout=subprocess.PIPE).communicate()
   for l in o.splitlines():
     p = Package(l)
