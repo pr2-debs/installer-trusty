@@ -22,10 +22,10 @@ umount /tmp/cdrom
 
 # copy reprepro conf to target and sync packages
 cp -r install_dev1/pr2-packages/conf $IMAGE_DIR
-(cd $IMAGE_DIR; reprepro --noskipold update precise)
+(cd $IMAGE_DIR; reprepro --noskipold update trusty)
 
 # copy preseed file to target
-cp install_dev1/basestation_precise64.preseed $IMAGE_DIR/preseed/ubuntu.seed
+cp install_dev1/basestation_trusty64.preseed $IMAGE_DIR/preseed/ubuntu.seed
 
 # add grub config files
 cp install_dev1/grub.cfg $IMAGE_DIR/boot/grub/
@@ -34,7 +34,7 @@ cp install_dev1/grub.cfg $IMAGE_DIR/boot/grub/
 cp install_dev1/new-sources.list $IMAGE_DIR/
 
 # remove GPG signature
-rm $IMAGE_DIR/dists/precise/Release.gpg
+rm $IMAGE_DIR/dists/trusty/Release.gpg
 
 # generate md5sums
 rm $IMAGE_DIR/md5sum.txt
