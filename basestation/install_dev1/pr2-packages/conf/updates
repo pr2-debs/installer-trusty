@@ -1,6 +1,6 @@
 Name: pr2-release
 Method: http://dev-vm-packages-01/pr2packages/ubuntu
-Components: main pr2 basestation multiverse restricted universe partner
+Components:  main pr2 basestation multiverse restricted universe partner
 Architectures: i386 amd64
 DownloadListsAs: .gz
 VerifyRelease: blindtrust
