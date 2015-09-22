@@ -17,6 +17,8 @@ import re
 acceptable_arches = { 'amd64': ('all', 'amd64'), 'i386': ('all', 'i386'),
       'all': ('all', 'amd64', 'i386') }
 
+pkgnamelist = []
+
 def expdep(dstr, arch):
   multid = dstr.split('|')
   deps = []
@@ -138,7 +140,15 @@ def main(argv, stdout, environ):
         for pkg in repo_pkgs[p]:
           missing += check_deps(repo_pkgs, repo_provs, pkg)
 
+    pkgnameset = set(pkgnamelist)
+    for name in pkgnameset:
+        with open("deplist.pkgs", "a") as myfile:
+              myfile.write("%s install\n" % name)  
+
     if missing > 0:
+      print("sizeof set %d" %len(pkgnameset))
+      print("sizeof pkgnamelist %d" %len(pkgnamelist))
+      print("missing %d packages" %missing)
       sys.exit(1)
     else:
       sys.exit(0)
@@ -156,17 +166,22 @@ def check_deps(repo_pkgs, repo_provs, pkg):
   pkg.subdeps = True
 
   missing = 0
+  global pkgnamelist
 
   for deplist in pkg.deps:
     found = False
     for d in deplist:
-      if d[0] in repo_provs:
-        for p in repo_provs[d[0]]:
+      depn = d[0]
+      depn = depn.split(":")
+      if depn[0] in repo_provs:
+        for p in repo_provs[depn[0]]:
           if p.satisfies(d):
             found = True
             missing += check_deps(repo_pkgs, repo_provs, p)
             break
     if not found:
+      pkgnamelist.append(deplist[0][0])
+      #pkgnamelist.append(pkg.name)
       print >> sys.stderr, "Missing Dep: %s For Package: %s (%s)"%(
             deplist, pkg.name, pkg.arch)
       missing += 1
