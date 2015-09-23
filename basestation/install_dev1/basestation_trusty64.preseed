@@ -19,7 +19,7 @@ d-i netcfg/enable boolean false
 # values set here. However, setting the values still prevents the questions
 # from being shown, even if values come from dhcp.
 d-i netcfg/get_hostname string basestation
-d-i netcfg/get_domain string willowgarage.com
+d-i netcfg/get_domain string clearpathrobotics.com
 
 # Disable that annoying WEP key dialog.
 d-i netcfg/wireless_wep string
