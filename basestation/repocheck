@@ -54,6 +54,11 @@ class Package(object):
         dpkgcmd = ['dpkg', '--compare-versions', self.ver, dep[1], dep[2]]
         if (subprocess.call(dpkgcmd) != 0):
             print "Failed. Version %s and %s mismatch" %(self.ver, dep[2])
+            if dep[2] in self.ver:
+                print "A revision has been made, but they are the same version. Continuing with versions %s and %s as satisfaction of dependency" %(self.ver, dep[2])
+                return True
+            else 
+                return False
         return (subprocess.call(dpkgcmd) == 0)
 
     def IsProv(self):
