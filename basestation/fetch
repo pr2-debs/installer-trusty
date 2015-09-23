@@ -1,4 +1,4 @@
 #!/bin/bash
 
 (cd install_dev1; [ -e ubuntu-14.04.3-desktop-amd64.iso ] || wget http://releases.ubuntu.com/trusty/ubuntu-14.04.3-desktop-amd64.iso)
-(cd install_dev1/pr2-packages; reprepro -V --noskipold update precise)
+(cd install_dev1/pr2-packages; reprepro -V --noskipold update trusty)
