@@ -44,7 +44,7 @@ d-i mirror/http/mirror select us.archive.ubuntu.com
 
 # Suite to install.
 #d-i mirror/suite string &releasename;
-d-i mirror/suite string precise
+d-i mirror/suite string trusty
 # Suite to use for loading installer components (optional).
 #d-i mirror/udeb/suite string &releasename;
 # Components to use for loading installer components (optional).
