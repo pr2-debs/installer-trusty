@@ -1,4 +1,4 @@
 #!/bin/bash
 
-(cd install_dev1; [ -e ubuntu-14.04.3-desktop-amd64.iso ] || wget http://releases.ubuntu.com/trusty/ubuntu-14.04.3-desktop-amd64.iso)
+(cd install_dev1; [ -e lubuntu-14.04-alternate-amd64.iso ] || wget http://cdimage.ubuntu.com/lubuntu/releases/14.04/release/lubuntu-14.04-alternate-amd64.iso)
 (cd install_dev1/pr2-packages; reprepro -V --noskipold update trusty)

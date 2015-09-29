@@ -1,9 +1,8 @@
 #!/bin/bash
 
-VERSION=14.04.3
-IMAGE=ubuntu-$VERSION-desktop-amd64.iso
-
-(cd install_dev1; [ -e $IMAGE ] || wget http://releases.ubuntu.com/trusty/$IMAGE)
+VERSION=14.04
+IMAGE=lubuntu-14.04-alternate-amd64.iso
+(cd install_dev1; [ -e $IMAGE ] || wget http://cdimage.ubuntu.com/lubuntu/releases/14.04/release/lubuntu-14.04-alternate-amd64.iso)
 
 # clean out target directory
 IMAGE_DIR=/tmp/image_dir
