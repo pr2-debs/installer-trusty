@@ -24,7 +24,7 @@ cp -r install_dev1/pr2-packages/conf $IMAGE_DIR
 (cd $IMAGE_DIR; reprepro --noskipold update trusty)
 
 # copy preseed file to target
-cp install_dev1/basestation_trusty64.preseed $IMAGE_DIR/preseed/ubuntu.seed
+cp install_dev1/basestation_trusty64.preseed $IMAGE_DIR/preseed/lubuntu.seed
 
 # add grub config files
 cp install_dev1/grub.cfg $IMAGE_DIR/boot/grub/
@@ -40,7 +40,7 @@ rm $IMAGE_DIR/md5sum.txt
 find $IMAGE_DIR -type f | xargs md5sum >$IMAGE_DIR/md5sum.txt
 
 isofile=/tmp/basestation.iso
-genisoimage -R -J -o $isofile -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -boot-info-table $IMAGE_DIR
+genisoimage -R -J -o $isofile -b isolinux/isolinux.bin -c isolinux/boot.cat -no-emul-boot -boot-load-size 4 -joliet-long -boot-info-table $IMAGE_DIR
 
 echo "ISO generated as $isofile:"
 du -h $isofile
