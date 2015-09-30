@@ -14,7 +14,7 @@ mkdir -p /tmp/cdrom
 mount -o loop install_dev1/$IMAGE /tmp/cdrom
 
 # copy disk image to target directory. It is copying incorrectly. Need to copy contents of cdrom to image_dir...
-cp -rf /tmp/cdrom/* $IMAGE_DIR
+rsync -a /tmp/cdrom/ $IMAGE_DIR
 
 # unmount disk image
 umount /tmp/cdrom
