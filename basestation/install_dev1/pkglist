@@ -15,4 +15,6 @@ emacs
 vim
 firefox
 debconf-utils
+linux-headers-generic
+linux-headers-3.13.0-24-generic
 unity
