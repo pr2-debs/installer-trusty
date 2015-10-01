@@ -6,23 +6,39 @@ d-i debian-installer/locale string en_US.UTF-8
 # Keyboard selection.
 # Disable automatic (interactive) keymap detection.
 d-i console-setup/ask_detect boolean false
+#d-i console-setup/modelcode string pc105
+d-i console-setup/layoutcode string us
+# To select a variant of the selected layout (if you leave this out, the
+# basic form of the layout will be used):
+#d-i console-setup/variantcode string dvorak
+
+#  server kernel
+# d-i	base-installer/kernel/override-image	string linux-server
 
 # Other answers to get installer to autocomplete
+d-i debian-installer/allow_unauthenticated boolean true
 d-i apt-setup/use_mirror boolean false
+d-i archive-copier/server-task string
+d-i archive-copier/ship-task string
+
 
 ### Network configuration
 # netcfg will choose an interface that has link if possible. This makes it
 # skip displaying a list if there is more than one interface.
-d-i netcfg/enable boolean false
+d-i netcfg/choose_interface select auto
+d-i netcfg/dhcp_failed note
+d-i netcfg/dhcp_options select Configure network manually
 
 # Any hostname and domain names assigned from dhcp take precedence over
 # values set here. However, setting the values still prevents the questions
 # from being shown, even if values come from dhcp.
 d-i netcfg/get_hostname string basestation
-d-i netcfg/get_domain string clearpathrobotics.com
+d-i netcfg/get_domain string willowgarage.com
 
 # Disable that annoying WEP key dialog.
 d-i netcfg/wireless_wep string
+# The wacky dhcp hostname that some ISPs use as a password of sorts.
+#d-i netcfg/dhcp_hostname string radish
 
 # If non-free firmware is needed for the network or other hardware, you can
 # configure the installer to always try to load it, without prompting. Or
@@ -33,18 +49,17 @@ d-i hw-detect/load_firmware boolean true
 # If you select ftp, the mirror/country string does not need to be set.
 #d-i mirror/protocol string ftp
 d-i mirror/country string manual
-d-i mirror/http/hostname string archive.ubuntu.com
+d-i mirror/http/hostname string http.us.debian.org
 d-i mirror/http/directory string /ubuntu
 d-i mirror/http/proxy string
 
 # Alternatively: by default, the installer uses CC.archive.ubuntu.com where
 # CC is the ISO-3166-2 code for the selected country. You can preseed this
 # so that it does so without asking.
-d-i mirror/http/mirror select us.archive.ubuntu.com
+#d-i mirror/http/mirror select CC.archive.ubuntu.com
 
 # Suite to install.
 #d-i mirror/suite string &releasename;
-d-i mirror/suite string trusty
 # Suite to use for loading installer components (optional).
 #d-i mirror/udeb/suite string &releasename;
 # Components to use for loading installer components (optional).
@@ -65,8 +80,65 @@ d-i clock-setup/ntp boolean true
 
 ### Partitioning
 d-i partman-auto/disk string /dev/sda
-d-i partman-auto/method string regular
-d-i partman-auto/choose-recipe string home
+d-i partman-auto/method string lvm
+
+# If one of the disks that are going to be automatically partitioned
+# contains an old LVM configuration, the user will normally receive a
+# warning. This can be preseeded away...
+d-i partman-lvm/device_remove_lvm boolean true
+# The same applies to pre-existing software RAID array:
+d-i partman-md/device_remove_md boolean true
+# And the same goes for the confirmation to write the lvm partitions.
+d-i partman-lvm/confirm boolean true
+
+
+# If not, you can put an entire recipe into the preconfiguration file in one
+# (logical) line. This example creates a small /boot partition, suitable
+# swap, and uses the rest of the space for the root partition:
+d-i partman-auto/expert_recipe string                        \
+512 512 512 ext2                                             \
+   $primary{ }                                               \
+   $bootable{ }                                              \
+   method{ format }                                          \
+   format{ }                                                 \
+   use_filesystem{ }                                         \
+   filesystem{ ext2 }                                        \
+   mountpoint{ /boot } .                                     \
+                                                             \
+512 512000 1000000000 ext3                                   \
+   $defaultignore{ }                                         \
+   $primary{ }                                               \
+   method{ lvm }                                             \
+   device{ /dev/sda }                                        \
+   vg_name{ vg00 } .                                         \
+                                                             \
+512 64000 64000 ext3                                         \
+   $lvmok{ }                                                 \
+   in_vg{ vg00 }                                             \
+   lv_name{ root }                                           \
+   method{ format }                                          \
+   format{ }                                                 \
+   use_filesystem{ }                                         \
+   filesystem{ ext4 }                                        \
+   mountpoint{ / } .                                         \
+                                                             \
+512 1024 300% linux-swap                                     \
+   $lvmok{ }                                                 \
+   in_vg{ vg00 }                                             \
+   lv_name{ swap }                                           \
+   method{ swap }                                            \
+   format{ } .                                               \
+                                                             \
+512 512000 1000000000 ext3                                   \
+   $lvmok{ }                                                 \
+   in_vg{ vg00 }                                             \
+   lv_name{ home }                                           \
+   method{ format }                                          \
+   format{ }                                                 \
+   use_filesystem{ }                                         \
+   filesystem{ ext4 }                                        \
+   mountpoint{ /home } .                                     \    
+
 
 # This makes partman automatically partition without confirmation, provided
 # that you told it what to do using one of the methods above.
@@ -119,20 +191,10 @@ d-i apt-setup/services-select multiselect security
 d-i apt-setup/security_host string security.ubuntu.com
 d-i apt-setup/security_path string /ubuntu
 
-# Enable extras.ubuntu.com.
-d-i apt-setup/extras boolean true
 
 ### Package selection
 # Choose software to install:
-tasksel tasksel/first   multiselect     ubuntu-server, ubuntu-desktop
-
-# individual packages to install
-d-i pkgsel/include multiselect openssh-server \
-      pr2-basestation \
-      language-pack-en \
-      language-pack-gnome-en \
-      gnome-shell \
-      vim
+tasksel tasksel/first   multiselect     ubuntu-server
 
 # Allowed values: none, safe-upgrade, full-upgrade
 d-i pkgsel/upgrade select none
@@ -164,7 +226,7 @@ d-i debian-installer/exit/poweroff boolean true
 
 # Preseed the java license accept:
 # This is no worse than having a technician accept it blindly...
-#ia32-sun-java6-bin shared/accepted-sun-dlj-v1-1 boolean true
+ia32-sun-java6-bin shared/accepted-sun-dlj-v1-1 boolean true
 
 # Preseed hddtemp
 hddtemp hddtemp/daemon boolean false
@@ -177,7 +239,6 @@ partman-base partman/filter_mounted boolean false
 
 # Preseeding for postfix
 postfix postfix/main_mailer_type select	Internet Site
-postfix postfix/mailname string basestation
+postfix postfix/mailname string robot
 
-#d-i preseed/late_command string mount -t proc proc /target/proc; mkdir -p /target/hd-media; mount -o ro `mount | sed -nre 's/(.*) on \/hd-media.*/\1/p'` /target/hd-media; in-target sh /hd-media/post_install
-d-i preseed/late_command string in-target cp /media/cdrom/new-sources.list /etc/apt/sources.list
+d-i preseed/late_command string mount -t proc proc /target/proc; mkdir -p /target/hd-media; mount -o ro `mount | sed -nre 's/(.*) on \/hd-media.*/\1/p'` /target/hd-media; in-target sh /hd-media/post_install
