@@ -6,8 +6,11 @@ d-i debian-installer/locale string en_US.UTF-8
 # Keyboard selection.
 # Disable automatic (interactive) keymap detection.
 d-i console-setup/ask_detect boolean false
+
 #d-i console-setup/modelcode string pc105
 d-i console-setup/layoutcode string us
+
+
 # To select a variant of the selected layout (if you leave this out, the
 # basic form of the layout will be used):
 #d-i console-setup/variantcode string dvorak
@@ -25,15 +28,17 @@ d-i archive-copier/ship-task string
 ### Network configuration
 # netcfg will choose an interface that has link if possible. This makes it
 # skip displaying a list if there is more than one interface.
-d-i netcfg/choose_interface select auto
-d-i netcfg/dhcp_failed note
-d-i netcfg/dhcp_options select Configure network manually
+#Taken from precise, because not necessary as pr2-basestation provides networking
+d-i netcfg/enable boolean false
+#d-i netcfg/choose_interface select auto
+#d-i netcfg/dhcp_failed note
+#d-i netcfg/dhcp_options select Configure network manually
 
 # Any hostname and domain names assigned from dhcp take precedence over
 # values set here. However, setting the values still prevents the questions
 # from being shown, even if values come from dhcp.
 d-i netcfg/get_hostname string basestation
-d-i netcfg/get_domain string willowgarage.com
+d-i netcfg/get_domain string clearpathrobotics.com
 
 # Disable that annoying WEP key dialog.
 d-i netcfg/wireless_wep string
@@ -49,7 +54,7 @@ d-i hw-detect/load_firmware boolean true
 # If you select ftp, the mirror/country string does not need to be set.
 #d-i mirror/protocol string ftp
 d-i mirror/country string manual
-d-i mirror/http/hostname string http.us.debian.org
+d-i mirror/http/hostname string archuve.ubuntu.com
 d-i mirror/http/directory string /ubuntu
 d-i mirror/http/proxy string
 
