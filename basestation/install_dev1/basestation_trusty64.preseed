@@ -142,7 +142,7 @@ d-i apt-setup/security_path string /ubuntu
 
 ### Package selection
 # Choose software to install:
-tasksel tasksel/first   multiselect     ubuntu-server
+tasksel tasksel/first   multiselect     ubuntu-server, ubuntu-desktop
 
 # Allowed values: none, safe-upgrade, full-upgrade
 d-i pkgsel/upgrade select none
