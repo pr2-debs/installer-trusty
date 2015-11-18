@@ -28,6 +28,7 @@ if [ $isofile == "/dev/null" ]; then
     exit
 fi
 
+./fetch
 ./verifyinstaller
 
 if [ $? -eq 0 ] || [ $force -eq 0 ]; then
